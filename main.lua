@@ -1,5 +1,3 @@
---[[pod_format="raw",created="2026-07-25 02:35:47",modified="2026-07-25 02:35:47",revision=0]]
-----------------------------------------------------------------
 
 
 --[[
@@ -63,6 +61,8 @@ function Newcomer:update
 ----------------------------------------------------------------
 
 
+--_debug=true
+
 function _final()
 
   _ensemble:destroy()
@@ -81,11 +81,13 @@ function _init()
   
   palt(0,false)
   
+  --Ensemble:init():create()
   Ensemble:init():create()
   
-  Debugger:init():create()
+  --Debugger:init():create()
   
-  Notice:init(_num):create()
+  --Notice:init(_num):create()
+  Notice:stick(_num)
 
 end
 
@@ -131,13 +133,13 @@ function Ensemble:update()
   
     local o=self.objects[i]
     
-    if(o and o.update)o:update()
+    if(o and o.update)then o:update() end
     
     for j=#self.objects,1,-1 do
     
       local p=self.objects[j]
       
-      if(o!=p and o and p and o.associate)o:associate(p)
+      if(o!=p and o and p and o.associate)then o:associate(p) end
     
     end
   
@@ -153,7 +155,7 @@ function Ensemble:draw()
   
     local o=self.objects[i]
     
-    if(o and o.draw)o:draw()
+    if(o and o.draw)then o:draw() end
   
   end
 
@@ -189,7 +191,7 @@ function Ensemble:destroy()
   
     local o=self.objects[i]
     
-    if(o and o.destroy) o:destroy()
+    if(o and o.destroy)then o:destroy() end
     
     --break
     
@@ -226,6 +228,18 @@ function Object:create(n)
   local o=setmetatable({},self)
 
   return _ensemble:add(o,n)
+
+end
+
+function Object:stick(...)
+
+  self:create():init(...)
+
+end
+
+function Object:stack(...)
+
+  self:create(1):init(...)
 
 end
 
@@ -273,7 +287,7 @@ end
 
 function Notice:update()
 
-  if(self:span()>3)self:final()
+  if(self:span()>3)then self:final() end
 
 end
 
@@ -285,11 +299,43 @@ end
 
 function Notice:final()
 
-  Map:create():init()
+  --Map:create():init()
+  Map:stick()
   
-  GhostlyNewcomer:create(1):init()
+  --GhostlyNewcomer:create(1):init()
+  GhostlyNewcomer:stack()
   
-  Player:create(1):init()
+  --assert(Player.create)
+  
+  --local c=Player
+  --local c=getmetatable(Player)
+  --local c=getmetatable(getmetatable(Player))
+  --assert(c!=Ensemble)
+  --assert(c!=Object)
+  --assert(c!=Notice)
+  --assert(c!=Enemy)
+  --assert(c!=Player)
+  --assert(c!=Map)
+  --assert(c!=GhostlyNewcomer)
+  --assert(c!=Ghost)
+  --assert(c!=Newcomer)
+  --assert(c!=Fighter)
+  --assert(c!=Buff)
+  --assert(c!=Shield)
+  --assert(c!=Debugger)
+  --assert(false)
+  
+  --CLEEEEEEEAN
+
+  --assert(false)
+  
+  local p=Player:create(1)
+  
+  --assert(false)
+  
+  p:init()
+  
+  --assert(false)
 
   self:destroy()
 
@@ -319,7 +365,7 @@ function Enemy:init()
 
   self.aPace=1/2^8
 
-  if(rnd(2)>1)self.aPace*=-1
+  if(rnd(2)>1)then self.aPace*=-1 end
 
   self.aSpeed=0
 
@@ -374,38 +420,118 @@ end
 ----------------------------------------------------------------
 
 
+Fighter=setmetatable({},Object)
+
+Fighter.__index=Fighter
+
+--Fighter.parent=getmetatable(Fighter)
+--Fighter.parent=Object
+
+function Fighter:create(...)
+
+  local parent=getmetatable(getmetatable(self))
+  
+  return parent.create(self,...)
+
+end
+
+function Fighter:init(health,charge)
+
+  --assert(false)
+
+  --local parent=getmetatable(getmetatable(self))
+  --local parent=self.parent
+  local parent=Object
+
+  if(not health)then health=5 end
+  
+  if(not charge)then charge=5 end
+
+  self.health=health
+  
+  self.charge=charge
+  
+  --assert(false)
+  
+  --assert(parent!=Object,tostr(parent))
+
+  return parent.init(self,health,charge) -- PROOOOOOOBLEM
+
+end
+
+function Fighter:update()
+
+  if btnp(4) then
+  
+  elseif btnp(5) then
+  
+    Shield:create():init(self.x,self.y)
+  
+  end
+
+end
+
+function Fighter:draw()
+
+end
+
+
+----------------------------------------------------------------
+
+
 Player=setmetatable({},Fighter)
 
 Player.__index=Player
 
+Player.parent=getmetatable(Player)
+
 function Player:init(...)
 
-  local parent=getmetatable(getmetatable(self))
+  assert(not _debug)
+
+  --local parent1=getmetatable(self)
+  local parent2=Fighter
+  --local parent2=Fighter
+  
+  --assert(false)
+  
+  --assert(parent2!=Fighter)
+  
+  --assert(false)
   
   --_debugger:classType(getmetatable(self))
   
-  local c=getmetatable(self)
-  c=parent
-  assert(c!=Ensemble)
-  assert(c!=Object)
-  assert(c!=Notice)
-  assert(c!=Enemy)
-  assert(c!=Player)
-  assert(c!=Map)
-  assert(c!=GhostlyNewcomer)
-  assert(c!=Ghost)
-  assert(c!=Newcomer)
-  assert(c!=Shield)
-  assert(c!=Buff)
-  assert(c!=Fighter)
-  assert(c!=Debugger)
-  assert(false)
+  --local c=getmetatable(self)
+  --c=parent
+  --assert(c!=Ensemble)
+  --assert(c!=Object)
+  --assert(c!=Notice)
+  --assert(c!=Enemy)
+  --assert(c!=Player)
+  --assert(c!=Map)
+  --assert(c!=GhostlyNewcomer)
+  --assert(c!=Ghost)
+  --assert(c!=Newcomer)
+  --assert(c!=Shield)
+  --assert(c!=Buff)
+  --assert(c!=Fighter)
+  --assert(c!=Debugger)
+  --assert(false)
 
   self.x=240
   
   self.y=135
+  
+  --assert(parent1==Player)
+  --assert(parent2==Fighter)
+  
+  --assert(false)
 
-  return parent.init(self,...)
+  local r=parent2.init(self,...) --PROOOOOOOBLEM
+  
+  --assert(false)
+  
+  return r
 
 end
 
@@ -513,7 +639,7 @@ function Map:generate()
     
     d=1
     
-    if(xLast>x)d*=-1
+    if(xLast>x)then d*=-1 end
     
     r=rnd(100)<50
     
@@ -529,7 +655,7 @@ function Map:generate()
     
     d=1
     
-    if(yLast>y)d*=-1
+    if(yLast>y)then d*=-1 end
     
     for b=yLast,y,d do
     
@@ -573,15 +699,15 @@ function Map:update()
 
   if self.ySpeed==0 then
 
-    if(btn(0))self.xSpeed=self.pace
+    if(btn(0))then self.xSpeed=self.pace end
 
-    if(btn(1))self.xSpeed=-self.pace
+    if(btn(1))then self.xSpeed=-self.pace end
   
   end if self.xSpeed==0 then
 
-    if(btn(2))self.ySpeed=self.pace
+    if(btn(2))then self.ySpeed=self.pace end
 
-    if(btn(3))self.ySpeed=-self.pace
+    if(btn(3))then self.ySpeed=-self.pace end
   
   end
   
@@ -595,7 +721,7 @@ function Map:update()
   
   local wall=loWall or hiWall
   
-  if(wall)self:halt()
+  if(wall)then self:halt() end
   
   local loStairs=fget(mget(flr(-self.x/24)+9,flr(-self.y/24)+5,3),1)
   
@@ -603,11 +729,11 @@ function Map:update()
   
   local stairs=loStairs or hiStairs
   
-  if(stairs and self.x%self.grid==0 and self.y%self.grid==0)self:leave()
+  if(stairs and self.x%self.grid==0 and self.y%self.grid==0)then self:leave() end
   
-  if(self.x%self.grid==0)self.xSpeed=0
+  if(self.x%self.grid==0)then self.xSpeed=0 end
 
-  if(self.y%self.grid==0)self.ySpeed=0
+  if(self.y%self.grid==0)then self.ySpeed=0 end
 
 end
 
@@ -683,7 +809,7 @@ function Map:associateGhost(other)
 
   if self.xSpeed<0 then
   
-    if(a==0)other.radius+=other.speed
+    if(a==0)then other.radius+=other.speed end
     
     if(a==2)then
 
@@ -695,7 +821,7 @@ function Map:associateGhost(other)
   
   elseif self.xSpeed>0 then
   
-    if(a==2)other.radius+=other.speed
+    if(a==2)then other.radius+=other.speed end
     
     if(a==0)then
 
@@ -707,7 +833,7 @@ function Map:associateGhost(other)
   
   elseif self.ySpeed<0 then
   
-    if(a==3)other.radius+=other.speed
+    if(a==3)then other.radius+=other.speed end
     
     if(a==1)then
 
@@ -719,7 +845,7 @@ function Map:associateGhost(other)
   
   elseif self.ySpeed>0 then
   
-    if(a==1)other.radius+=other.speed
+    if(a==1)then other.radius+=other.speed end
     
     if(a==3)then
 
@@ -743,13 +869,17 @@ GhostlyNewcomer.__index=GhostlyNewcomer
 
 function GhostlyNewcomer:update()
 
-  if(btnp(0) and rnd(100)<5)Ghost:create(1):init(2)
+  --if(btnp(0) and rnd(100)<5)then Ghost:create(1):init(2) end
+  if(btnp(0) and rnd(100)<5)then Ghost:stack(2) end
 
-  if(btnp(1) and rnd(100)<5)Ghost:create(1):init(0)
+  --if(btnp(1) and rnd(100)<5)then Ghost:create(1):init(0) end
+  if(btnp(1) and rnd(100)<5)then Ghost:stack(0) end
 
-  if(btnp(2) and rnd(100)<5)Ghost:create(1):init(1)
+  --if(btnp(2) and rnd(100)<5)then Ghost:create(1):init(1) end
+  if(btnp(2) and rnd(100)<5)then Ghost:stack(1) end
 
-  if(btnp(3) and rnd(100)<5)Ghost:create(1):init(3)
+  --if(btnp(3) and rnd(100)<5)then Ghost:create(1):init(3) end
+  if(btnp(3) and rnd(100)<5)then Ghost:stack(3) end
   
 end
 
@@ -767,7 +897,7 @@ function Ghost:init(a)
 
   self.radius=10*self.grid
   
-  if(not a)a=0
+  if(not a)then a=0 end
 
   self.angle=a/4
 
@@ -777,7 +907,7 @@ function Ghost:init(a)
   
   self.entrance=9.5
   
-  if((self.angle-1/4)*2%1==0)self.entrance=5.5
+  if((self.angle-1/4)*2%1==0)then self.entrance=5.5 end
 
   return self
 
@@ -830,57 +960,9 @@ function Newcomer:update()
 
   if btnp(0) or btnp(1) or btnp(2) or btnp(3) then
   
-    if(rnd(100)<5)Enemy:create(1):init()
+    if(rnd(100)<5)then Enemy:create(1):init() end
   
   end
-
-end
-
-
-----------------------------------------------------------------
-
-
-Fighter=setmetatable({},Object)
-
-Fighter.__index=Fighter
-
-function Fighter:create(...)
-
-  local parent=getmetatable(getmetatable(self))
-  
-  return parent.create(self,...)
-
-end
-
-function Fighter:init(health,charge)
-
-  local parent=getmetatable(getmetatable(self))
-
-  if(not health)health=5
-  
-  if(not charge)charge=5
-
-  self.health=health
-  
-  self.charge=charge
-
-  return parent.init(self,health,charge)
-
-end
-
-function Fighter:update()
-
-  if btnp(4) then
-  
-  elseif btnp(5) then
-  
-    Shield:create():init(self.x,self.y)
-  
-  end
-
-end
-
-function Fighter:draw()
 
 end
 
@@ -894,9 +976,9 @@ Buff.__index=Buff
 
 function Buff:init(x,y)
 
-  if(not x)x=240
+  if(not x)then x=240 end
   
-  if(not y)y=135
+  if(not y)then y=135 end
 
   self.create=time()
   
@@ -918,7 +1000,7 @@ end
 
 function Buff:update()
 
-  if(self:span()<self.lifespan)self:destroy()
+  if(self:span()<self.lifespan)then self:destroy() end
 
 end
 
@@ -939,6 +1021,7 @@ end
 
 ----------------------------------------------------------------
 
+--[[
 
 Debugger=setmetatable({},Object)
 
@@ -977,3 +1060,5 @@ function Debugger:classType(c)
   assert(c!=Debugger)
   
 end
+
+--]]
