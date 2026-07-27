@@ -1,66 +1,3 @@
-
-
---[[
-
-function _final
-function _init
-
-function Ensemble:init
-function Ensemble:create
-function Ensemble:update
-function Ensemble:draw
-function Ensemble:add
-function Ensemble:del
-function Ensemble:destroy
-
-function Object:init
-function Object:create
-function Object:destroy
-function Object:exit
-function Object:update
-function Object:draw
-function Object:associate
-
-function Notice:init
-function Notice:span
-function Notice:update
-function Notice:draw
-function Notice:final
-
-function Enemy:init
-function Enemy:update
-function Enemy:draw
-
-function Player:update
-function Player:draw
-function Player:associate
-function Player:brace
-
-function Map:init
-function Map:generate
-function Map:update
-function Map:leave
-function Map:halt
-function Map:draw
-function Map:final
-function Map:destroy
-function Map:associate
-function Map:associateGhost
-
-function GhostlyNewcomer:update
-
-function Ghost:init
-function Ghost:update
-function Ghost:draw
-
-function Newcomer:update
-
---]]
-
-
-----------------------------------------------------------------
-
-
 --_debug=true
 
 function _final()
@@ -90,9 +27,6 @@ function _init()
   Notice:stick(_num)
 
 end
-
-
-----------------------------------------------------------------
 
 
 Ensemble={}
@@ -210,9 +144,6 @@ function Ensemble:destroy()
 end
 
 
-----------------------------------------------------------------
-
-
 Object={}
 
 Object.__index=Object
@@ -260,9 +191,6 @@ function Object:update() end
 function Object:draw() end
 
 function Object:associate() end
-
-
-----------------------------------------------------------------
 
 
 Notice=setmetatable({},Object)
@@ -342,9 +270,6 @@ function Notice:final()
 end
 
 
-----------------------------------------------------------------
-
-
 Enemy=setmetatable({},Object)
 
 Enemy.__index=Enemy
@@ -417,9 +342,6 @@ function Enemy:draw()
 end
 
 
-----------------------------------------------------------------
-
-
 Fighter=setmetatable({},Object)
 
 Fighter.__index=Fighter
@@ -427,14 +349,14 @@ Fighter.__index=Fighter
 --Fighter.parent=getmetatable(Fighter)
 --Fighter.parent=Object
 
-function Fighter:create(...)
+--function Fighter:create(...)
 
   --local parent=getmetatable(getmetatable(self))
-  local parent=Object
+--  local parent=Object
   
-  return parent.create(self,...)
+--  return parent.create(self,...)
 
-end
+--end
 
 function Fighter:init(health,charge)
 
@@ -466,7 +388,6 @@ function Fighter:update()
   
   elseif btnp(5) then
     
-    --Shield:create():init(self.x,self.y)
     Shield:stack(self.x,self.y)
   
   end
@@ -476,9 +397,6 @@ end
 function Fighter:draw()
 
 end
-
-
-----------------------------------------------------------------
 
 
 Player=setmetatable({},Fighter)
@@ -574,9 +492,6 @@ function Player:brace(other)
   end
 
 end
-
-
-----------------------------------------------------------------
 
 
 Map=setmetatable({},Object)
@@ -858,9 +773,6 @@ function Map:associateGhost(other)
 end
 
 
-----------------------------------------------------------------
-
-
 GhostlyNewcomer=setmetatable({},Object)
 
 GhostlyNewcomer.__index=GhostlyNewcomer
@@ -880,9 +792,6 @@ function GhostlyNewcomer:update()
   if(btnp(3) and rnd(100)<5)then Ghost:stack(3) end
   
 end
-
-
-----------------------------------------------------------------
 
 
 Ghost=setmetatable({},Object)
@@ -947,9 +856,6 @@ function Ghost:draw()
 end
 
 
-----------------------------------------------------------------
-
-
 Newcomer=setmetatable({},Object)
 
 Newcomer.__index=Newcomer
@@ -965,9 +871,6 @@ function Newcomer:update()
 end
 
 
-----------------------------------------------------------------
-
-
 Buff=setmetatable({},Object)
 
 Buff.__index=Buff
@@ -980,7 +883,7 @@ function Buff:init(x,y)
 
   self.create=time()
   
-  self.lifespan=4
+  self.lifespan=2
   
   self.x=x
   
@@ -998,12 +901,9 @@ end
 
 function Buff:update()
 
-  if(self:span()<self.lifespan)then self:destroy() end
+  if(self:span()>self.lifespan)then self:destroy() end
 
 end
-
-
-----------------------------------------------------------------
 
 
 Shield=setmetatable({},Buff)
@@ -1012,51 +912,10 @@ Shield.__index=Shield
 
 function Shield:draw()
 
-  circ(self.x,self.y,7,32)
+  local m=sin(time()*4)*3
+
+  circ(self.x,self.y,18+m,7)
 
 end
 
 
-----------------------------------------------------------------
-
---[[
-
-Debugger=setmetatable({},Object)
-
-Debugger.__index=Debugger
-
-function Debugger:init()
-
-  _debugger=self
-
-  return self
-
-end
-
-function Debugger:update()
-
-end
-
-function Debugger:draw()
-
-end
-
-function Debugger:classType(c)
-
-  assert(c!=Ensemble)
-  assert(c!=Object)
-  assert(c!=Notice)
-  assert(c!=Enemy)
-  assert(c!=Player)
-  assert(c!=Map)
-  assert(c!=GhostlyNewcomer)
-  assert(c!=Ghost)
-  assert(c!=Newcomer)
-  assert(c!=Shield)
-  assert(c!=Buff)
-  assert(c!=Fighter)
-  assert(c!=Debugger)
-  
-end
-
---]]
