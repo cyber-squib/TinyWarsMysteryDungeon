@@ -429,7 +429,8 @@ Fighter.__index=Fighter
 
 function Fighter:create(...)
 
-  local parent=getmetatable(getmetatable(self))
+  --local parent=getmetatable(getmetatable(self))
+  local parent=Object
   
   return parent.create(self,...)
 
@@ -464,8 +465,9 @@ function Fighter:update()
   if btnp(4) then
   
   elseif btnp(5) then
-  
-    Shield:create():init(self.x,self.y)
+    
+    --Shield:create():init(self.x,self.y)
+    Shield:stack(self.x,self.y)
   
   end
 
@@ -532,10 +534,6 @@ function Player:init(...)
   --assert(false)
   
   return r
-
-end
-
-function Player:update()
 
 end
 
