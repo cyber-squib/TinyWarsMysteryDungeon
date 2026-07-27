@@ -386,6 +386,8 @@ function Fighter:update()
 
   if btnp(4) then
   
+    Charge:stack(self.x,self.y)
+  
   elseif btnp(5) then
     
     Shield:stack(self.x,self.y)
@@ -918,4 +920,24 @@ function Shield:draw()
 
 end
 
+
+Charge=setmetatable({},Buff)
+
+Charge.__index=Charge
+
+function Charge:draw()
+
+  for i=1,8 do
+  
+    local s=40
+  
+    local x,y=self.x+rnd(s)-s/2,self.y+rnd(s)-s/2
+    
+    local h=3
+    
+    line(x,y-h,x,y+h,7)
+  
+  end
+
+end
 
