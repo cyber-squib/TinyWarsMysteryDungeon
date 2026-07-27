@@ -346,39 +346,25 @@ Fighter=setmetatable({},Object)
 
 Fighter.__index=Fighter
 
---Fighter.parent=getmetatable(Fighter)
---Fighter.parent=Object
+function Fighter:init(health,zeal,cost)
 
---function Fighter:create(...)
-
-  --local parent=getmetatable(getmetatable(self))
---  local parent=Object
-  
---  return parent.create(self,...)
-
---end
-
-function Fighter:init(health,charge)
-
-  --assert(false)
-
-  --local parent=getmetatable(getmetatable(self))
-  --local parent=self.parent
   local parent=Object
 
-  if(not health)then health=5 end
+  if not health then health=5 end
   
-  if(not charge)then charge=5 end
+  if not zeal then zeal=1 end
+  
+  if not cost then cost=1 end
 
   self.health=health
   
-  self.charge=charge
+  self.charge=0
   
-  --assert(false)
+  self.zeal=zeal
   
-  --assert(parent!=Object,tostr(parent))
+  self.cost=cost
 
-  return parent.init(self,health,charge) -- PROOOOOOOBLEM
+  return parent.init(self,health,charge)
 
 end
 
@@ -386,12 +372,30 @@ function Fighter:update()
 
   if btnp(4) then
   
+    self.charge+=self.zeal
+  
     Charge:stack(self.x,self.y)
   
   elseif btnp(5) then
     
     Shield:stack(self.x,self.y)
   
+  end
+  
+  if self.charge>self.cost then
+  
+    self.charge-=self.cost
+  
+    if btnp(0) then
+    
+    elseif btnp(1) then
+
+    elseif btnp(2) then
+
+    elseif btnp(3) then
+  
+    end
+    
   end
 
 end
@@ -941,3 +945,33 @@ function Charge:draw()
 
 end
 
+
+Shot=setmetatable({},Buff)
+
+Shot.__index=Shot
+
+function Shot:init(x,y,xSpeed,ySpeed)
+
+  local parent=Buff
+  
+  parent.init(self,x,y,xSpeed,ySpeed)
+
+end
+
+function Shot:update()
+
+  local parent=Buff
+  
+  self.x+=self.xSpeed
+  
+  self.y+=self.ySpeed
+  
+  parent.update(self)
+
+end
+
+function Shot:draw()
+
+  
+
+end
