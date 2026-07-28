@@ -237,9 +237,9 @@ function Notice:final()
   
   GhostlyNewcomer:stack()
   
-  Player:stock()
-  
   Frame:stack()
+  
+  Player:stack()
 
   self:destroy()
 
@@ -397,8 +397,6 @@ Player=setmetatable({},Fighter)
 
 Player.__index=Player
 
-Player.parent=getmetatable(Player)
-
 function Player:init(...)
 
   assert(not _debug)
@@ -452,6 +450,14 @@ end
 function Player:draw()
 
   circ(240,135,12,8)
+  
+  self:drawStats()
+
+end
+
+function Player:drawStats()
+
+  print("CHARGE:"..self.charge,8,8,8)
 
 end
 
