@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2026-07-28 21:25:20",modified="2026-07-28 21:25:28",revision=1]]
+--[[pod_format="raw",created="2026-07-28 21:25:20",modified="2026-07-28 21:46:33",revision=9]]
 Map=setmetatable({},Object)
 
 Map.__index=Map
@@ -139,7 +139,7 @@ function Map:update()
   
   local wall=loWall or hiWall
   
-  if(wall)then self:halt() end
+  if wall then self:halt() end
   
   local loStairs=fget(mget(flr(-self.x/24)+9,flr(-self.y/24)+5,3),1)
   
@@ -216,6 +216,10 @@ function Map:associate(other)
   if type==Ghost then
   
     self:associateGhost(other)
+    
+  elseif type==Player then
+  
+    self:associatePlayer(other)
   
   end
 
@@ -272,6 +276,16 @@ function Map:associateGhost(other)
       other.speed=0
 
     end
+  
+  end
+
+end
+
+function Map:associatePlayer(other)
+
+  if other.charge>0 then
+  
+    self:halt()
   
   end
 
