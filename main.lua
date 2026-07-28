@@ -954,7 +954,15 @@ function Shot:init(x,y,xSpeed,ySpeed,power)
 
   local parent=Buff
   
-  parent.init(self,x,y,xSpeed,ySpeed,power)
+  self.xSpeed=xSpeed
+  
+  self.ySpeed=ySpeed
+  
+  self.power=power
+  
+  self.speed=2
+  
+  parent.init(self,x,y)
 
 end
 
@@ -962,9 +970,9 @@ function Shot:update()
 
   local parent=Buff
   
-  self.x+=self.xSpeed
+  self.x+=self.xSpeed*self.speed
   
-  self.y+=self.ySpeed
+  self.y+=self.ySpeed*self.speed
   
   parent.update(self)
 
@@ -972,9 +980,13 @@ end
 
 function Shot:draw()
 
-  local m=sin(time()*4)*3
+  local m=sin(time()*6)*2
+  
+  local a,r=3,4
+  
+  local xm,ym=sin(time()*r)*a,cos(time()*r)*a
 
-  circ(self.x,self.y,18+m,7)
+  circ(self.x+xm,self.y+ym,4+m,7)
 
 end
 
