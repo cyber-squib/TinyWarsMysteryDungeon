@@ -92,15 +92,6 @@ function Ensemble:draw()
     if(o and o.draw)then o:draw() end
   
   end
-  
-  --local s=3
-  
-  local w=3+24*0
-  
-  local h=3+24*1
-  
-  rectfill(240-135+w,0+h,240+135-w-1,270-h-1,2^35)
-  rect(240-135+w,0+h,240+135-w-1,270-h-1,7)
 
 end
 
@@ -183,6 +174,12 @@ function Object:stack(...)
 
 end
 
+function Object:stock(...)
+
+  self:create(flr(#_ensemble.objects/2)):init(...)
+
+end
+
 function Object:destroy()
 
   return _ensemble:del(self)
@@ -236,43 +233,13 @@ end
 
 function Notice:final()
 
-  --Map:create():init()
   Map:stick()
   
-  --GhostlyNewcomer:create(1):init()
   GhostlyNewcomer:stack()
   
-  --assert(Player.create)
+  Player:stock()
   
-  --local c=Player
-  --local c=getmetatable(Player)
-  --local c=getmetatable(getmetatable(Player))
-  --assert(c!=Ensemble)
-  --assert(c!=Object)
-  --assert(c!=Notice)
-  --assert(c!=Enemy)
-  --assert(c!=Player)
-  --assert(c!=Map)
-  --assert(c!=GhostlyNewcomer)
-  --assert(c!=Ghost)
-  --assert(c!=Newcomer)
-  --assert(c!=Fighter)
-  --assert(c!=Buff)
-  --assert(c!=Shield)
-  --assert(c!=Debugger)
-  --assert(false)
-  
-  --CLEEEEEEEAN
-
-  --assert(false)
-  
-  local p=Player:create(1)
-  
-  --assert(false)
-  
-  p:init()
-  
-  --assert(false)
+  Frame:stack()
 
   self:destroy()
 
@@ -807,16 +774,16 @@ GhostlyNewcomer.__index=GhostlyNewcomer
 function GhostlyNewcomer:update()
 
   --if(btnp(0) and rnd(100)<5)then Ghost:create(1):init(2) end
-  if(btnp(0) and rnd(100)<5)then Ghost:stack(2) end
+  if(btnp(0) and rnd(100)<5)then Ghost:stock(2) end
 
   --if(btnp(1) and rnd(100)<5)then Ghost:create(1):init(0) end
-  if(btnp(1) and rnd(100)<5)then Ghost:stack(0) end
+  if(btnp(1) and rnd(100)<5)then Ghost:stock(0) end
 
   --if(btnp(2) and rnd(100)<5)then Ghost:create(1):init(1) end
-  if(btnp(2) and rnd(100)<5)then Ghost:stack(1) end
+  if(btnp(2) and rnd(100)<5)then Ghost:stock(1) end
 
   --if(btnp(3) and rnd(100)<5)then Ghost:create(1):init(3) end
-  if(btnp(3) and rnd(100)<5)then Ghost:stack(3) end
+  if(btnp(3) and rnd(100)<5)then Ghost:stock(3) end
   
 end
 
@@ -1002,5 +969,22 @@ function Shot:draw()
   local m=sin(time()*4)*3
 
   circ(self.x,self.y,18+m,7)
+
+end
+
+
+Frame=setmetatable({},Object)
+
+Frame.__index=Frame
+
+function Frame:draw()
+  
+  local w=3+24*0
+  
+  local h=3+24*1
+  
+  rectfill(240-135+w,0+h,240+135-w-1,270-h-1,2^35)
+  
+  rect(240-135+w,0+h,240+135-w-1,270-h-1,7)
 
 end
