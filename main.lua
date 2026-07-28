@@ -354,8 +354,6 @@ function Fighter:update()
   
       self.charge-=self.cost
     
-      assert(false)
-    
       Shot:stack(self.x,self.y,-1,0)
     
     elseif btnp(1) then
@@ -956,15 +954,11 @@ function Shot:init(x,y,xSpeed,ySpeed,power)
 
   local parent=Buff
   
-  assert(false)
-  
   parent.init(self,x,y,xSpeed,ySpeed,power)
 
 end
 
 function Shot:update()
-
-  assert(false)
 
   local parent=Buff
   
@@ -977,8 +971,6 @@ function Shot:update()
 end
 
 function Shot:draw()
-
-  assert(false)
 
   local m=sin(time()*4)*3
 
