@@ -92,6 +92,15 @@ function Ensemble:draw()
     if(o and o.draw)then o:draw() end
   
   end
+  
+  --local s=3
+  
+  local w=3+24*0
+  
+  local h=3+24*1
+  
+  rectfill(240-135+w,0+h,240+135-w-1,270-h-1,2^35)
+  rect(240-135+w,0+h,240+135-w-1,270-h-1,7)
 
 end
 
@@ -382,17 +391,29 @@ function Fighter:update()
   
   end
   
-  if self.charge>self.cost then
+  if self.charge>=self.cost then
   
     self.charge-=self.cost
+    
+    --assert(false)
   
     if btnp(0) then
     
+      assert(false)
+    
+      Shot:stack(self.x,self.y,-1,0)
+    
     elseif btnp(1) then
+    
+      Shot:stack(self.x,self.y,1,0)
 
     elseif btnp(2) then
+    
+      Shot:stack(self.x,self.y,0,-1)
 
     elseif btnp(3) then
+    
+      Shot:stack(self.x,self.y,0,1)
   
     end
     
@@ -950,15 +971,19 @@ Shot=setmetatable({},Buff)
 
 Shot.__index=Shot
 
-function Shot:init(x,y,xSpeed,ySpeed)
+function Shot:init(x,y,xSpeed,ySpeed,power)
 
   local parent=Buff
   
-  parent.init(self,x,y,xSpeed,ySpeed)
+  assert(false)
+  
+  parent.init(self,x,y,xSpeed,ySpeed,power)
 
 end
 
 function Shot:update()
+
+  assert(false)
 
   local parent=Buff
   
@@ -972,6 +997,10 @@ end
 
 function Shot:draw()
 
-  
+  assert(false)
+
+  local m=sin(time()*4)*3
+
+  circ(self.x,self.y,18+m,7)
 
 end
