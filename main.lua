@@ -346,6 +346,40 @@ end
 
 function Fighter:update()
 
+  if self.charge>=self.cost then
+    
+    --assert(false)
+  
+    if btnp(0) then
+  
+      self.charge-=self.cost
+    
+      assert(false)
+    
+      Shot:stack(self.x,self.y,-1,0)
+    
+    elseif btnp(1) then
+  
+      self.charge-=self.cost
+    
+      Shot:stack(self.x,self.y,1,0)
+
+    elseif btnp(2) then
+  
+      self.charge-=self.cost
+    
+      Shot:stack(self.x,self.y,0,-1)
+
+    elseif btnp(3) then
+  
+      self.charge-=self.cost
+    
+      Shot:stack(self.x,self.y,0,1)
+  
+    end
+    
+  end
+
   if btnp(4) then
   
     self.charge+=self.zeal
@@ -358,34 +392,6 @@ function Fighter:update()
   
   end
   
-  if self.charge>=self.cost then
-  
-    self.charge-=self.cost
-    
-    --assert(false)
-  
-    if btnp(0) then
-    
-      assert(false)
-    
-      Shot:stack(self.x,self.y,-1,0)
-    
-    elseif btnp(1) then
-    
-      Shot:stack(self.x,self.y,1,0)
-
-    elseif btnp(2) then
-    
-      Shot:stack(self.x,self.y,0,-1)
-
-    elseif btnp(3) then
-    
-      Shot:stack(self.x,self.y,0,1)
-  
-    end
-    
-  end
-
 end
 
 function Fighter:draw()
@@ -456,6 +462,8 @@ function Player:draw()
 end
 
 function Player:drawStats()
+
+  --assert(self.charge==0)
 
   print("CHARGE:"..self.charge,8,8,8)
 
