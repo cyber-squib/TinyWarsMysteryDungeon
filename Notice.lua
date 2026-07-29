@@ -1,11 +1,11 @@
 --[[pod_format="raw",created="2026-07-28 21:28:19",modified="2026-07-28 21:28:19",revision=0]]
-Notice=setmetatable({},Object)
+Notice=_G.setmetatable({},Object)
 
 Notice.__index=Notice
 
 function Notice:init(n)
 
-  self.created=time()
+  self.created=_G.time()
   
   self.number=n
 
@@ -15,7 +15,7 @@ end
 
 function Notice:span()
 
-  return time()-self.created
+  return _G.time()-self.created
 
 end
 
@@ -27,7 +27,7 @@ end
 
 function Notice:draw()
 
-  print("F L O O R   "..self.number,240-13*4,135-3,8)
+  _G.print("F L O O R   "..self.number,240-13*4,135-3,8)
 
 end
 

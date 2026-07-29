@@ -14,9 +14,9 @@ _num=1
 
 function _init()
 
-  vid()
+  _G.vid()
   
-  palt(0,false)
+  _G.palt(0,false)
   
   --Ensemble:init():create()
   Ensemble:init():create()

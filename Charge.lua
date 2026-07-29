@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:20:51",modified="2026-07-28 21:20:51",revision=0]]
-Charge=setmetatable({},Buff)
+Charge=_G.setmetatable({},Buff)
 
 Charge.__index=Charge
 
@@ -9,11 +9,11 @@ function Charge:draw()
   
     local s=40
   
-    local x,y=self.x+rnd(s)-s/2,self.y+rnd(s)-s/2
+    local x,y=self.x+_G.rnd(s)-s/2,self.y+_G.rnd(s)-s/2
     
     local h=3
     
-    line(x,y-h,x,y+h,7)
+    _G.line(x,y-h,x,y+h,7)
   
   end
 

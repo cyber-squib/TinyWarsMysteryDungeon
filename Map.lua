@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:25:20",modified="2026-07-28 21:46:33",revision=9]]
-Map=setmetatable({},Object)
+Map=_G.setmetatable({},Object)
 
 Map.__index=Map
 
@@ -7,9 +7,9 @@ function Map:init()
 
   self.grid=24
 
-  self.x=-flr(rnd(8))*self.grid
+  self.x=-_G.flr(_G.rnd(8))*self.grid
 
-  self.y=-flr(rnd(8))*self.grid
+  self.y=-_G.flr(_G.rnd(8))*self.grid
 
   self.xSpeed=0
 
@@ -31,13 +31,13 @@ function Map:generate()
 
   local x,y,w,h,xLast,yLast
 
-  x,y=flr(-self.x/24)+9,flr(-self.y/24)+5
+  x,y=_G.flr(-self.x/24)+9,_G.flr(-self.y/24)+5
   
   xLast,yLast=x,y
   
   for n=1,2 do
 
-    w,h=flr(rnd(2))+2,flr(rnd(2))+2
+    w,h=_G.flr(_G.rnd(2))+2,_G.flr(_G.rnd(2))+2
     
     --w,h=1,1
   
@@ -45,7 +45,7 @@ function Map:generate()
   
       for b=y-h,y+h do
     
-        mset(a,b,4)
+        _G.mset(a,b,4)
     
       end
   
@@ -59,13 +59,13 @@ function Map:generate()
     
     if(xLast>x)then d*=-1 end
     
-    r=rnd(100)<50
+    r=_G.rnd(100)<50
     
     for a=xLast,x,d do
     
-      if r then mset(a,y,t)
+      if r then _G.mset(a,y,t)
       
-      else mset(a,yLast,t)
+      else _G.mset(a,yLast,t)
       
       end
     
@@ -77,9 +77,9 @@ function Map:generate()
     
     for b=yLast,y,d do
     
-      if not r then mset(x,b,t)
+      if not r then _G.mset(x,b,t)
       
-      else mset(xLast,b,t)
+      else _G.mset(xLast,b,t)
       
       end
     
@@ -87,21 +87,21 @@ function Map:generate()
     
     --t=6
     
-    --mset(xLast,y,t)
+    --_G.mset(xLast,y,t)
 
-    --mset(xLast,yLast,t)
+    --_G.mset(xLast,yLast,t)
 
-    --mset(x,y,t)
+    --_G.mset(x,y,t)
 
-    --mset(x,yLast,t)
+    --_G.mset(x,yLast,t)
     
     xLast,yLast=x,y
   
-    x,y=flr(rnd(48)),flr(rnd(48))
+    x,y=_G.flr(_G.rnd(48)),_G.flr(_G.rnd(48))
   
   end
   
-  mset(xLast,yLast,3)
+  _G.mset(xLast,yLast,3)
 
 end
 
@@ -111,21 +111,21 @@ function Map:update()
   
   self.yLast=self.y
 
-  --mset(flr(-self.x/24)+9,flr(-self.y/24)+5,3)
+  --_G.mset(_G.flr(-self.x/24)+9,_G.flr(-self.y/24)+5,3)
   
-  --mset(ceil(-self.x/24)+9,ceil(-self.y/24)+5,3)
+  --_G.mset(_G.ceil(-self.x/24)+9,_G.ceil(-self.y/24)+5,3)
 
   if self.ySpeed==0 then
 
-    if(btn(0))then self.xSpeed=self.pace end
+    if(_G.btn(0))then self.xSpeed=self.pace end
 
-    if(btn(1))then self.xSpeed=-self.pace end
+    if(_G.btn(1))then self.xSpeed=-self.pace end
   
   end if self.xSpeed==0 then
 
-    if(btn(2))then self.ySpeed=self.pace end
+    if(_G.btn(2))then self.ySpeed=self.pace end
 
-    if(btn(3))then self.ySpeed=-self.pace end
+    if(_G.btn(3))then self.ySpeed=-self.pace end
   
   end
   
@@ -133,17 +133,17 @@ function Map:update()
   
   self.y+=self.ySpeed
   
-  local loWall=fget(mget(flr(-self.x/24)+9,flr(-self.y/24)+5,3),0)
+  local loWall=_G.fget(_G.mget(_G.flr(-self.x/24)+9,_G.flr(-self.y/24)+5,3),0)
   
-  local hiWall=fget(mget(ceil(-self.x/24)+9,ceil(-self.y/24)+5,3),0)
+  local hiWall=_G.fget(_G.mget(_G.ceil(-self.x/24)+9,_G.ceil(-self.y/24)+5,3),0)
   
   local wall=loWall or hiWall
   
   if wall then self:halt() end
   
-  local loStairs=fget(mget(flr(-self.x/24)+9,flr(-self.y/24)+5,3),1)
+  local loStairs=_G.fget(_G.mget(_G.flr(-self.x/24)+9,_G.flr(-self.y/24)+5,3),1)
   
-  local hiStairs=fget(mget(ceil(-self.x/24)+9,ceil(-self.y/24)+5,3),1)
+  local hiStairs=_G.fget(_G.mget(_G.ceil(-self.x/24)+9,_G.ceil(-self.y/24)+5,3),1)
   
   local stairs=loStairs or hiStairs
   
@@ -179,7 +179,7 @@ end
 
 function Map:draw()
 
-  map(0,0,self.x+12,self.y+3)
+  _G.map(0,0,self.x+12,self.y+3)
 
 end
 
@@ -191,7 +191,7 @@ function Map:final()
   
     for b=0,h do
     
-      mset(a,b,1)
+      _G.mset(a,b,1)
     
     end
     
@@ -201,7 +201,7 @@ end
 
 function Map:destroy()
 
-  local parent=getmetatable(getmetatable(self))
+  local parent=_G.getmetatable(_G.getmetatable(self))
   
   self:final()
   
@@ -211,7 +211,7 @@ end
 
 function Map:associate(other)
 
-  local type=getmetatable(other)
+  local type=_G.getmetatable(other)
   
   if type==Ghost then
   

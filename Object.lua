@@ -11,7 +11,7 @@ end
 
 function Object:create(n)
 
-  local o=setmetatable({},self)
+  local o=_G.setmetatable({},self)
 
   return _ensemble:add(o,n)
 
@@ -31,7 +31,7 @@ end
 
 function Object:stock(...)
 
-  self:create(flr(#_ensemble.objects/2)):init(...)
+  self:create(_G.flr(#_ensemble.objects/2)):init(...)
 
 end
 

@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:21:39",modified="2026-07-28 21:21:39",revision=0]]
-Buff=setmetatable({},Object)
+Buff=_G.setmetatable({},Object)
 
 Buff.__index=Buff
 
@@ -9,7 +9,7 @@ function Buff:init(x,y)
   
   if(not y)then y=135 end
 
-  self.create=time()
+  self.create=_G.time()
   
   self.lifespan=2
   
@@ -23,7 +23,7 @@ end
 
 function Buff:span()
 
-  return time()-self.create
+  return _G.time()-self.create
 
 end
 

@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:20:31",modified="2026-07-28 21:20:31",revision=0]]
-Shot=setmetatable({},Buff)
+Shot=_G.setmetatable({},Buff)
 
 Shot.__index=Shot
 
@@ -33,12 +33,12 @@ end
 
 function Shot:draw()
 
-  local m=sin(time()*6)*2
+  local m=_G.sin(_G.time()*6)*2
   
   local a,r=3,4
   
-  local xm,ym=sin(time()*r)*a,cos(time()*r)*a
+  local xm,ym=_G.sin(_G.time()*r)*a,_G.cos(_G.time()*r)*a
 
-  circ(self.x+xm,self.y+ym,4+m,7)
+  _G.circ(self.x+xm,self.y+ym,4+m,7)
 
 end

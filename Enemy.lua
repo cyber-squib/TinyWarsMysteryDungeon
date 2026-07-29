@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:27:44",modified="2026-07-28 21:27:44",revision=0]]
-Enemy=setmetatable({},Object)
+Enemy=_G.setmetatable({},Object)
 
 Enemy.__index=Enemy
 
@@ -9,7 +9,7 @@ function Enemy:init()
 
   self.radius=10*self.grid
 
-  self.angle=flr(rnd(4))/4
+  self.angle=_G.flr(_G.rnd(4))/4
 
   self.pace=1
 
@@ -19,7 +19,7 @@ function Enemy:init()
 
   self.aPace=1/2^8
 
-  if(rnd(2)>1)then self.aPace*=-1 end
+  if(_G.rnd(2)>1)then self.aPace*=-1 end
 
   self.aSpeed=0
 
@@ -31,8 +31,8 @@ function Enemy:update()
 
   if self.speed==0 and self.aSpeed==0 then
 
-    if btnp(0) or btnp(1)
-     or btnp(2) or btnp(3) then
+    if _G.btnp(0) or _G.btnp(1)
+     or _G.btnp(2) or _G.btnp(3) then
    
       self.speed=-self.pace
     
@@ -64,8 +64,8 @@ function Enemy:draw()
 
   local r,a=self.radius,self.angle
   
-  local x,y=240+cos(a)*r,135+sin(a)*r
+  local x,y=240+_G.cos(a)*r,135+_G.sin(a)*r
 
-  circ(x,y,12,8)
+  _G.circ(x,y,12,8)
 
 end

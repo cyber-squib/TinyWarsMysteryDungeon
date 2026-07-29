@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:27:14",modified="2026-07-28 21:27:14",revision=0]]
-Fighter=setmetatable({},Object)
+Fighter=_G.setmetatable({},Object)
 
 Fighter.__index=Fighter
 
@@ -29,27 +29,27 @@ function Fighter:update()
 
   if self.charge>=self.cost then
     
-    --assert(false)
+    --_G.assert(false)
   
-    if btnp(0) then
+    if _G.btnp(0) then
   
       self.charge-=self.cost
     
       Shot:stock(self.x,self.y,-1,0)
     
-    elseif btnp(1) then
+    elseif _G.btnp(1) then
   
       self.charge-=self.cost
     
       Shot:stock(self.x,self.y,1,0)
 
-    elseif btnp(2) then
+    elseif _G.btnp(2) then
   
       self.charge-=self.cost
     
       Shot:stock(self.x,self.y,0,-1)
 
-    elseif btnp(3) then
+    elseif _G.btnp(3) then
   
       self.charge-=self.cost
     
@@ -59,13 +59,13 @@ function Fighter:update()
     
   end
 
-  if btnp(4) then
+  if _G.btnp(4) then
   
     self.charge+=self.zeal
   
     Charge:stack(self.x,self.y)
   
-  elseif btnp(5) then
+  elseif _G.btnp(5) then
     
     Shield:stack(self.x,self.y)
   

@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2026-07-28 21:22:58",modified="2026-07-28 21:23:16",revision=1]]
-Ghost=setmetatable({},Object)
+Ghost=_G.setmetatable({},Object)
 
 Ghost.__index=Ghost
 
@@ -29,8 +29,8 @@ function Ghost:update()
 
   if self.speed==0 then
 
-    if btn(0) or btn(1)
-     or btn(2) or btn(3) then
+    if _G.btn(0) or _G.btn(1)
+     or _G.btn(2) or _G.btn(3) then
    
       self.speed=-self.pace
     
@@ -54,8 +54,8 @@ function Ghost:draw()
 
   local r,a=self.radius,self.angle
   
-  local x,y=240+cos(a)*r,135+sin(a)*r
+  local x,y=240+_G.cos(a)*r,135+_G.sin(a)*r
 
-  circ(x,y,12,8)
+  _G.circ(x,y,12,8)
 
 end

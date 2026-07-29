@@ -13,7 +13,7 @@ end
 
 function Ensemble:create()
 
-  _ensemble=setmetatable({},self)
+  _ensemble=_G.setmetatable({},self)
   
   _update=function()
 
@@ -53,7 +53,7 @@ end
 
 function Ensemble:draw()
 
-  cls()
+  _G.cls()
 
   for i=#self.objects,1,-1 do
   
@@ -67,13 +67,13 @@ end
 
 function Ensemble:add(o,n)
   
-  return add(self.objects,o,n)
+  return _G.add(self.objects,o,n)
 
 end
 
 function Ensemble:del(o)
 
-  return del(self.objects,o)
+  return _G.del(self.objects,o)
 
 end
 
@@ -81,13 +81,13 @@ function Ensemble:destroy()
 
   local o=self.objects[#self.objects]
   
-  local t=getmetatable(o)
+  local t=_G.getmetatable(o)
   
-  assert(t==Map)
+  _G.assert(t==Map)
   
   o:destroy()
   
-  --assert(false,"FIX THIS SHIT!")
+  --_G.assert(false,"FIX THIS SHIT!")
 
   --[[
 

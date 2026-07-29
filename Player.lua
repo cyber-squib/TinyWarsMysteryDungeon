@@ -1,53 +1,53 @@
 --[[pod_format="raw",created="2026-07-28 21:26:27",modified="2026-07-28 21:26:27",revision=0]]
-Player=setmetatable({},Fighter)
+Player=_G.setmetatable({},Fighter)
 
 Player.__index=Player
 
 function Player:init(...)
 
-  assert(not _debug)
+  _G.assert(not _debug)
 
-  --local parent1=getmetatable(self)
+  --local parent1=_G.getmetatable(self)
   local parent2=Fighter
   --local parent2=Fighter
   
-  --assert(false)
+  --_G.assert(false)
   
-  --assert(parent2!=Fighter)
+  --_G.assert(parent2!=Fighter)
   
-  --assert(false)
+  --_G.assert(false)
   
-  --_debugger:classType(getmetatable(self))
+  --_debugger:classType(_G.getmetatable(self))
   
-  --local c=getmetatable(self)
+  --local c=_G.getmetatable(self)
   --c=parent
-  --assert(c!=Ensemble)
-  --assert(c!=Object)
-  --assert(c!=Notice)
-  --assert(c!=Enemy)
-  --assert(c!=Player)
-  --assert(c!=Map)
-  --assert(c!=GhostlyNewcomer)
-  --assert(c!=Ghost)
-  --assert(c!=Newcomer)
-  --assert(c!=Shield)
-  --assert(c!=Buff)
-  --assert(c!=Fighter)
-  --assert(c!=Debugger)
-  --assert(false)
+  --_G.assert(c!=Ensemble)
+  --_G.assert(c!=Object)
+  --_G.assert(c!=Notice)
+  --_G.assert(c!=Enemy)
+  --_G.assert(c!=Player)
+  --_G.assert(c!=Map)
+  --_G.assert(c!=GhostlyNewcomer)
+  --_G.assert(c!=Ghost)
+  --_G.assert(c!=Newcomer)
+  --_G.assert(c!=Shield)
+  --_G.assert(c!=Buff)
+  --_G.assert(c!=Fighter)
+  --_G.assert(c!=Debugger)
+  --_G.assert(false)
 
   self.x=240
   
   self.y=135
   
-  --assert(parent1==Player)
-  --assert(parent2==Fighter)
+  --_G.assert(parent1==Player)
+  --_G.assert(parent2==Fighter)
   
-  --assert(false)
+  --_G.assert(false)
 
   local r=parent2.init(self,...) --PROOOOOOOBLEM
   
-  --assert(false)
+  --_G.assert(false)
   
   return r
 
@@ -55,7 +55,7 @@ end
 
 function Player:draw()
 
-  circ(240,135,12,8)
+  _G.circ(240,135,12,8)
   
   self:drawStats()
 
@@ -63,15 +63,15 @@ end
 
 function Player:drawStats()
 
-  --assert(self.charge==0)
+  --_G.assert(self.charge==0)
 
-  print("CHARGE:"..self.charge,8,8,8)
+  _G.print("CHARGE:"..self.charge,8,8,8)
 
 end
 
 function Player:associate(other)
 
-  local type=getmetatable(other)
+  local type=_G.getmetatable(other)
   
   if type==Enemy
    or type==Ghost
@@ -87,13 +87,13 @@ function Player:brace(other)
 
   local r,a=other.radius,other.angle
   
-  local x2,y2=240+cos(a)*r,135+sin(a)*r
+  local x2,y2=240+_G.cos(a)*r,135+_G.sin(a)*r
   
   local x1,y1=self.x,self.y
   
   local d=12
 
-  if abs(x1-x2)<d and abs(y1-y2)<d then
+  if _G.abs(x1-x2)<d and _G.abs(y1-y2)<d then
   
     other:destroy()
   
